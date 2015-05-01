@@ -1,9 +1,9 @@
-from ArtistSimilarityGraph import *
+from Driver import *
 from DatabaseUtils import *
 import unittest
 
-"""Test ArtistSimilarityGraph.py"""
-class TestArtistSimilarityGraph(unittest.TestCase):
+"""Test Driver.py"""
+class TestDriver(unittest.TestCase):
         
     """Test generateV"""
     def test_generateV(self):
