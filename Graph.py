@@ -118,17 +118,30 @@ class Graph(object):
     v The id of the ending vertex
     return The path from s to v
     """
-    def findPath(self, sID, vID):
-        if not g.hasVertex(sID) or not g.hasVertex(vID):
-            return None
+    def findPath(self, sID, vID = ""):
+        if not self.hasVertex(sID) or not self.hasVertex(vID):
+            return ["These artists are not connected"]
+    
+        s = self.getV(sID)
+        v = self.getV(vID)
+    
+        # vertex : parent
+        paths = {}
+    
+        worklist = []
+        worklist.append(s)
+        while worklist:
+            x = worklist.pop()
+            for u in x.adj():
+                if u.id() not in paths:
+                    paths[u.id()] = x.id() 
+                    worklist.append(u)
 
-        s = getV(sID)
-        v = getV(vID)
-
-        info = {}
-        info
-
+        path = [vID]
+        curr = vID
+        while curr != sID:
+            curr = paths[curr]
+            path.append(curr)
+        path.reverse()
         
-        
-        
-        
+        return path

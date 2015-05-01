@@ -53,8 +53,8 @@ if __name__ == '__main__':
     print ""
     print "Welcome!"
     print "NOTE: your queries will be case sensitive"
-    print "Consult the text file graph to get an idea of the artists included in this database"
-    print "as well as examples of how artists names are formatted"
+    print "Consult the text file, graph, to get an idea of the artists included in"
+    print "this database, as well as examples of how artists names are formatted"
     print "Please wait, the graph is loading..."
     
     g = Graph(generateV())
@@ -68,7 +68,7 @@ if __name__ == '__main__':
     print "0 = artists similar to a given artist"
     print "1 = if an artist is connected to another artist through similar artists"
     print "To exit, type 'exit' at any time"
-
+    
     while True:
         cmnd = raw_input()
 
@@ -78,8 +78,7 @@ if __name__ == '__main__':
             if cmnd in artists:
                 print "Similar artists include: "
                 sim = g.getAdj(cmnd)
-                for s in sim:
-                    print s
+                for s in sim: print s
 
                 print ""
                 print "What else would you like to know?"
@@ -92,11 +91,13 @@ if __name__ == '__main__':
                 print "Try another one?"
 
         elif cmnd == "1":
-            cmnd = raw_input("Please specify an artist: ")
+            cmnd = raw_input("Please specify the first artist: ")
+            foo = raw_input("Please specify the second artist: ")
 
-            if cmnd in artists:
-                
-        
+            if cmnd in artists and foo in artists:
+                print "The path from %s to %s is: " % (cmnd, foo)
+                path = g.findPath(cmnd, foo)
+                for p in path: print p
             
                 print ""
                 print "What else would you like to know?"

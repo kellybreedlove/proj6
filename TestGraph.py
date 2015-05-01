@@ -47,8 +47,12 @@ class TestGraph(unittest.TestCase):
 
     """Test addAdj"""
     def test_addAdj(self):
-        pass
-   
+        v = Vertex('A', ['B', 'C'])
+        u = Vertex('A', [])
+        v.addAdj(u)
+        self.assertTrue(u in v.adj())
+        
+        
     """Test isAdjacent"""
     def test_isAdjacent(self):
         v = Vertex('A', ['B', 'C'])
@@ -64,7 +68,8 @@ class TestGraph(unittest.TestCase):
 
     """Test getV"""
     def test_getV(self):
-        pass
+        v = Vertex('A', [])
+        self.assertEqual('A', v.id())
 
     """Test hasVertex"""
     def test_hasVertex(self):
@@ -73,7 +78,8 @@ class TestGraph(unittest.TestCase):
 
     """Test getAdj"""
     def test_getAdj(self):
-        pass
+        adj = ['B', 'C', 'F']
+        self.assertEqual(adj, g.getAdj('A'))
 
     """Test vertexWithMostAdj"""
     def test_vertexWithMostAdj(self):
@@ -82,13 +88,15 @@ class TestGraph(unittest.TestCase):
         
     """Test findPath Valid"""
     def test_findPathValid(self):
-        return
+        path = ['A', 'C', 'D']
         self.assertTrue(g.findPath('A', 'D'))
+        self.assertEqual(path, g.findPath('A', 'D'))
         
     """Test findPath Invalid"""
     def test_findPathInvalid(self):
-        self.assertIsNone(g.findPath('U', 'A'))
-        self.assertIsNone(g.findPath('A', 'U'))
+        null = ["These artists are not connected"]
+        self.assertEqual(null, g.findPath('U', 'A'))
+        self.assertEqual(null, g.findPath('A', 'U'))
 
     if __name__ == '__main__':
         unittest.main()
