@@ -25,7 +25,15 @@ class Vertex:
     """
     def adj(self):
         return self._adjacents
-    
+
+    """
+    A mutator for this vertex's adjacent vertices
+    This will overwrite all adjacents and is used only when
+    generating the initial vertices. It's a necessary evil for now.
+    """
+    def setAdj(self, adj):
+        self._adjacents = adj
+        
     """
     A contains method for adjacents
     v The vertex in question
