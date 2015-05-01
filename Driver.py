@@ -1,4 +1,4 @@
-import sqlite3
+aquimport sqlite3
 from Graph import *
 
 def musicV():
@@ -16,5 +16,6 @@ def musicV():
             print row
 
 if __name__ == '__main__':
-    pass
+    g = Graph(musicV())
+    g.printGraph()
 

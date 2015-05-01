@@ -48,16 +48,14 @@ class TestGraph(unittest.TestCase):
 
     """Test hasVertex"""
     def test_hasVertex(self):
-        return
-        for key, value in testGraph.iteritems():
-            for val in value:
-                self.assertTrue(g.hasVertex(key))
+        self.assertTrue(g.hasVertex('A'))
+        self.assertFalse(g.hasVertex('U'))
 
-    """Test findPath"""
-    def test_findPath(self):
-        pass
-
-    """ Test isConnected"""
-    def test_isConnected(self):
-        self.assertTrue(g.isConnected('A', 'D'))
-        self.assertFalse(g.isConnected('F', 'Z'))
+    """Test findPath Valid"""
+    def test_findPathValid(self):
+        self.assertTrue(g.findPath('A', 'D'))
+        
+    """Test findPath Invalid"""
+    def test_findPathInvalid(self):
+        self.assertIsNone(g.findPath('U', 'A'))
+        self.assertIsNone(g.findPath('A', 'U'))

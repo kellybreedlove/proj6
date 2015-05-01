@@ -4,7 +4,7 @@ import Queue
 """
 A class to model a vertex in a graph.
 """
-class Vertex(object):
+class Vertex:
 
     """
     idVal The id or value stored at this vertex 
@@ -40,7 +40,7 @@ class Vertex(object):
 """
 A class to model a graph.
 """
-class Graph(object):
+class Graph:
 
     """
     v All of the vertices in this graph
@@ -58,7 +58,7 @@ class Graph(object):
   
     """
     Contains
-    v The vertex in question
+    v The id of the vertex in question
     return True if n is in this graph, False otherwise
     """
     def hasVertex(self, v):
@@ -68,34 +68,27 @@ class Graph(object):
         return False
 
     """
-    An implementation of Dijkstra's Algorithm
+    Find a path, if any, from vertex s to vertex v in this graph.
     path The paths from s to each vertex
     s The starting vertex
     return The path from s to each vertex
     """
-    def findPath(self, path, s):
-        bounds = {}
-        for v in self._vertices:
-            bounds[v.id()] = sys.maxint
-        bounds[s.id()] = 0
-        pq = Queue.PriorityQueue()
+    def findPath(self, s, v, path = []):
+        path += [s]
+        if s == v:
+            return path
+        if not self.hasVertex(s) or not self.hasVertex(v):
+            return None
+        for u in self._vertices:
+            if u not in path:
+                newpath = self.findPath(u, v, path)
+                if newpath: return newpath
+            
+    """
+    Find the minimum spanning tree of this graph
+    return The minimum spanning tree
+    """
+    def minSpanningTree(self):
+        pass
 
     
-    """
-    Find a path, if any, between to vertices
-    s The starting vertex
-    v The ending vertex
-    return True if s is connected to v, otherwise False
-    """
-    def isConnected(self, s, v):
-        return
-        path = [s]
-        if s == v:
-            return True
-        if not graph.hasVertex(s):
-            return False
-        for node in graph[start]:
-            if node not in path:
-                newpath = find_path(graph, node, end, path)
-                if newpath: return newpath
-        return None
