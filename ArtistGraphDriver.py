@@ -3,18 +3,6 @@ from DatabaseUtils import *
 import sys
 
 """
-A class to model data about artist similarty from the MillionSongSubset database as a graph.
-Ideally I would extend Graph with ArtistSimilarityGraph.
-However, there's some issues with python versions and the use
-of super() that I don't quite understand. So, bellow I just make a graph with generateV().
-
-class ArtistSimilarityGraph(Graph):
-
-    def __init__(self):
-        super(generateV())
-"""
-
-"""
 Generate the vertices for the graph.
 Do so dynamically, because there is a lot of data.
 return A list of the vertices correctly formated create a graph with
