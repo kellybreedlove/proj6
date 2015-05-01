@@ -4,7 +4,7 @@ import Queue
 """
 A class to model a vertex in a graph.
 """
-class Vertex:
+class Vertex(object):
 
     """
     idVal The id or value stored at this vertex 
@@ -28,11 +28,9 @@ class Vertex:
 
     """
     A mutator for this vertex's adjacent vertices
-    This will overwrite all adjacents and is used only when
-    generating the initial vertices. It's a necessary evil for now.
     """
-    def setAdj(self, adj):
-        self._adjacents = adj
+    def addAdj(self, adj):
+        self._adjacents += [adj]
         
     """
     A contains method for adjacents
@@ -48,7 +46,7 @@ class Vertex:
 """
 A class to model a graph.
 """
-class Graph:
+class Graph(object):
 
     """
     v All of the vertices in this graph
