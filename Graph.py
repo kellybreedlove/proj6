@@ -61,7 +61,18 @@ class Graph(object):
         for v in self._vertices:
             for a in v.adj():
                 print "%s -> %s" % (v.id(), a.id())
-  
+
+    """
+    "Private" Helper
+    Find the vertex that corresponds to the given id
+    return The vertex object that corresponds to the given id
+    """
+    def getV(self, v):
+        for u in self._vertices:
+            if u.id() == v:
+                return u
+        return None
+                  
     """
     Contains
     v The id of the vertex in question
@@ -74,27 +85,50 @@ class Graph(object):
         return False
 
     """
-    Find a path, if any, from vertex s to vertex v in this graph.
-    path The paths from s to each vertex
-    s The starting vertex
-    return The path from s to each vertex
+    Find the adjacent vertices to this vertex in the graph
+    return The id of adjacent vertices
     """
-    def findPath(self, s, v, path = []):
-        path += [s]
-        if s == v:
-            return path
-        if not self.hasVertex(s) or not self.hasVertex(v):
-            return None
+    def getAdj(self, v):
+        raw = set()
         for u in self._vertices:
-            if u not in path:
-                newpath = self.findPath(u, v, path)
-                if newpath: return newpath
-            
+            if u.id() == v:
+                for a in u.adj():
+                    raw.add(a.id())
+                adj = [i for i in raw]
+                adj.sort()
+                return adj
+        return ["None"]
+        
     """
-    Find the minimum spanning tree of this graph
-    return The minimum spanning tree
+    Find the vertex with the most adjacent vertices in this graph
+    return The id of vertex with the most adjacent vertices
     """
-    def minSpanningTree(self):
-        pass
-
+    def vertexWithMostAdj(self):
+        maxAdj = self._vertices[0]
+        for v in self._vertices:
+            if len(v.adj()) > len(maxAdj.adj()):
+                maxAdj = v
+        return maxAdj.id()
     
+    """
+    Find a path, if any, from vertex s to vertex v in this graph.
+    Do so using depth first search.
+    path The paths from s to each vertex
+    s The id of the starting vertex
+    v The id of the ending vertex
+    return The path from s to v
+    """
+    def findPath(self, sID, vID):
+        if not g.hasVertex(sID) or not g.hasVertex(vID):
+            return None
+
+        s = getV(sID)
+        v = getV(vID)
+
+        info = {}
+        info
+
+        
+        
+        
+        
