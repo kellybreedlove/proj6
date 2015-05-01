@@ -1,0 +1,112 @@
+conn = sqlite3.connect('subset_track_metadata.db')
+c = conn.cursor()
+
+with conn:
+
+    cmd = "ATTACH DATABASE ? as ?"
+    #c.execute(cmd, ('subset_artist_term.db', 'db1'))
+    c.execute(cmd, ('subset_artist_similarity.db', 'db'))
+
+    cmd = "select * from songs inner join db.similarity on similarity.target = songs.artist_id;"
+
+
+select similarity.target, similarity.similar, songs.title, songs.artist_name from songs inner join db.similarity on similarity.target = songs.artist_id;
+
+
+select artist_name from songs
+join db.similarity on similarity.target = songs.artist_id
+where similarity.target = "ARMQHX71187B9890D3";
+
+  
+         
+    rows = c.fetchall()
+    for row in rows:
+        print row
+
+
+
+
+
+
+
+
+subset_artist_similarity.db 
+
+sqlite> .tables
+artists     similarity
+
+sqlite> .schema artists
+CREATE TABLE artists (artist_id text PRIMARY KEY);
+
+sqlite> .schema similarity
+CREATE TABLE similarity (target text, similar text, FOREIGN KEY(target) REFERENCES artists(artist_id), FOREIGN KEY(similar) REFERENCES artists(artist_id) );
+
+CREATE INDEX idx_target_sim ON similarity ('target','similar');
+CREATE INDEX idx_sim_target ON similarity ('similar','target');
+
+
+
+
+
+
+subset_track_metadata.db
+
+sqlite> .tables
+songs
+
+sqlite> .schema songs
+CREATE TABLE songs (track_id text PRIMARY KEY, title text, song_id text, release text, artist_id text, artist_mbid text, artist_name text, duration real, artist_familiarity real, artist_hotttnesss real, year int);
+
+CREATE INDEX idx_artist_id ON songs ('artist_id','release');
+CREATE INDEX idx_artist_mbid ON songs ('artist_mbid','release');
+CREATE INDEX idx_familiarity ON songs ('artist_familiarity','artist_hotttnesss');
+CREATE INDEX idx_hotttnesss ON songs ('artist_hotttnesss','artist_familiarity');
+CREATE INDEX idx_artist_name ON songs ('artist_name','title','release');
+CREATE INDEX idx_title ON songs ('title','artist_name','release');
+CREATE INDEX idx_duration ON songs ('duration','artist_id');
+CREATE INDEX idx_year ON songs ('year','artist_id','title');
+CREATE INDEX idx_year2 ON songs ('year','artist_name');
+
+
+
+
+
+
+
+subset_artist_term.db 
+
+sqlite> .tables
+artist_mbtag  artist_term   artists       mbtags        terms
+  
+sqlite> .schema artist_mbtag
+CREATE TABLE artist_mbtag (artist_id text, mbtag text, FOREIGN KEY(artist_id) REFERENCES artists(artist_id), FOREIGN KEY(mbtag) REFERENCES mbtags(mbtag) );
+
+CREATE INDEX idx_artist_id_mbtag ON artist_mbtag ('artist_id','mbtag');
+CREATE INDEX idx_mbtag_artist_id ON artist_mbtag ('mbtag','artist_id');
+
+sqlite> .schema artist_term
+CREATE TABLE artist_term (artist_id text, term text, FOREIGN KEY(artist_id) REFERENCES artists(artist_id), FOREIGN KEY(term) REFERENCES terms(term) );
+
+CREATE INDEX idx_artist_id_term ON artist_term ('artist_id','term');
+CREATE INDEX idx_term_artist_id ON artist_term ('term','artist_id');
+
+sqlite> .schema artists
+CREATE TABLE artists (artist_id text PRIMARY KEY);
+
+sqlite> .schema mbtags
+CREATE TABLE mbtags (mbtag text PRIMARY KEY);
+
+sqlite> .schema terms
+CREATE TABLE terms (term text PRIMARY KEY);
+
+
+
+
+
+
+
+
+
+
+
+
